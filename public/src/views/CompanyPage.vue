@@ -1,0 +1,13 @@
+<template>
+    <div>CompanyPage</div>
+</template>
+
+<script>
+  export default {
+    name: 'CompanyPage'
+  };
+</script>
+
+<style scoped>
+
+</style>
