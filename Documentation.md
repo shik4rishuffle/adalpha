@@ -19,3 +19,8 @@
   - Add bootstrap to reduce time spent on styling and make the mobile first approach easier
   - Begin adding in basic DOM elements to Views
   
+  ### 08-03-19
+  - Add in TypeScript
+  - Reconfigure existing Vue files to be Vue Class components with TypeScript
+  - add in TypeScript basic Types Decelerations
+  - wrap App in Declared Vue app to include all Vue functionality for TypeScript

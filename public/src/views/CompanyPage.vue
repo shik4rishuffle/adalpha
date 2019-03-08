@@ -33,15 +33,14 @@
     </div>
 </template>
 
-<script>
-  export default {
-    name: 'CompanyPage',
-    data () {
-      return {
-        companyName: 'company Name',
-        currentHoldings: 33
-      };
-    }
+<script lang="ts">
+  import {Vue, Component} from 'vue-property-decorator';
+
+    @Component
+  export default class CompanyPage extends Vue {
+    name: string;
+    companyName: string;
+    currentHoldings: number;
   };
 </script>
 
