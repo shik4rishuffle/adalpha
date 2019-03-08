@@ -17,4 +17,5 @@
     - I have only added in a couple of the obvious components for now. due to my limited knowledge of using vue with GO I am going to add more as they become necessary.
   - Add in view to Router  
   - Add bootstrap to reduce time spent on styling and make the mobile first approach easier
+  - Begin adding in basic DOM elements to Views
   
