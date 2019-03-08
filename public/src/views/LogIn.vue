@@ -21,14 +21,13 @@
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'LogIn',
-    data () {
-      return {
-        user: 'Flynn'
-      };
-    }
+<script lang="ts">
+  import {Vue, Component} from 'vue-property-decorator';
+
+  @Component
+  export default class LogIn extends Vue {
+    name: 'LogIn';
+    userName: 'Flynn';
   };
 </script>
 

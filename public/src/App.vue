@@ -6,11 +6,14 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
   import TheMenu from './components/TheMenu';
+  import {Vue, Component} from 'vue-property-decorator';
 
-  export default {
-    name: 'App',
-    components: {TheMenu}
+  @Component({
+      components: {TheMenu}
+  })
+  export default class App extends Vue {
+    name: 'App';
   };
 </script>

@@ -5,8 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 Vue.config.productionTip = false;
 
+const VueApp: any = Vue;
 /* eslint-disable no-new */
-new Vue({
+const MyApp = new VueApp({
   el: '#app',
   router,
   components: {App},

@@ -12,14 +12,16 @@
     </div>
 </template>
 
-<script>
-  export default {
-    name: 'TheMenu',
-    data: function () {
-      return {
-        show: false
-      };
-    }
+<script lang="ts">
+  import {Vue, Component, Prop} from 'vue-property-decorator';
+
+  @Component
+  export default class TheMenu extends Vue {
+    name: 'TheMenu';
+    @Prop({
+        default: false
+    })
+    show: Boolean;
   };
 </script>
 

@@ -2,7 +2,7 @@
     <div class="trade-page container-fluid">
         <div class="row">
             <div class="col-12">
-                <investment-graph></investment-graph>
+                <InvestmentGraph></InvestmentGraph>
             </div>
         </div>
         <div class="row">
@@ -40,18 +40,16 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
   import InvestmentGraph from '../components/InvestmentGraph';
-
-  export default {
-    name: 'TradePage',
-    components: {InvestmentGraph},
-    data () {
-      return {
-        companyName: 'test',
-        currentHoldings: 33
-      };
-    }
+  import {Vue, Component} from 'vue-property-decorator';
+  @Component({
+      components: {InvestmentGraph}
+  })
+  export default class TradePage extends Vue {
+      name: string;
+      companyName: string;
+      currentHoldings: number;
   };
 </script>
 

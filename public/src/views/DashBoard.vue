@@ -2,13 +2,13 @@
     <div class="dash-board container-fluid">
         <div class="row">
             <div class="col">
-                <h1 class="h1">Welcome {{username}}</h1>
+                <h1 class="h1">Welcome {{userName}}</h1>
             </div>
         </div>
         <div class="row graph-row">
             <div class="col-8 graph-col">
                 <div class="col-11 graph">
-                    <investment-graph></investment-graph>
+                    <InvestmentGraph></InvestmentGraph>
                 </div>
                 <div class="col-1">
                     <div>Toggle</div>
@@ -18,17 +18,17 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
   import InvestmentGraph from '../components/InvestmentGraph';
+  import {Vue, Component} from 'vue-property-decorator';
 
-  export default {
-    name: 'DashBoard',
-    components: {InvestmentGraph},
-    data () {
-      return {
-        username: 'Flynn'
-      };
-    }
+  @Component({
+      components: {InvestmentGraph}
+  })
+
+  export default class DashBoard extends Vue {
+    name: 'DashBoard';
+    userName: string;
   };
 </script>
 
