@@ -32,6 +32,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         }
       ]
     },
+    headers: {
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+      'Access-Control-Allow-Origin': '*'
+    },
+    disableHostCheck: true,
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,

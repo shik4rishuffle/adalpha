@@ -4,7 +4,6 @@ import router from './router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 Vue.config.productionTip = false;
-
 const VueApp: any = Vue;
 /* eslint-disable no-new */
 const MyApp = new VueApp({

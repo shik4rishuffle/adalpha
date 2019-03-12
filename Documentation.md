@@ -24,3 +24,11 @@
   - Reconfigure existing Vue files to be Vue Class components with TypeScript
   - add in TypeScript basic Types Decelerations
   - wrap App in Declared Vue app to include all Vue functionality for TypeScript
+  
+  ### 10-03-19
+  - Installed Docker to Computer
+  - installed GO 
+  - add in CORs to main.go to keep my projects clean and in separate front end/ back end folders (check with ad alpha to make sure if this is correct)
+  - add in vue-resource for http requests
+  - username is `ADA123456789` password is anything
+  - got the login page returning the cookies
