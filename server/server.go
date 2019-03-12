@@ -20,6 +20,12 @@ type server struct {
 }
 
 func (s *server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	setCORS(w)
+
+	if req.Method == http.MethodOptions {
+		return
+	}
+
 	var head string
 	head, req.URL.Path = shiftPath(req.URL.Path)
 
@@ -43,6 +49,15 @@ func (s *server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 
 	http.NotFound(w, req)
+}
+
+func setCORS(w http.ResponseWriter) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set(
+		"Access-Control-Allow-Headers",
+		"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization",
+	)
 }
 
 func (s *server) Login(w http.ResponseWriter, req *http.Request) {
