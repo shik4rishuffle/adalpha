@@ -3,7 +3,7 @@
         <div class="row justify-content-center align-items-center vh-100">
             <div class="col-sm-11 col-md-6 card">
                 <h1 class="h1 align-self-center">Welcome</h1>
-                <form class="col-12" >
+                <form class="col-12" @submit.prevent="login">
                     <div class="form-group">
                         <label >Username</label>
                         <input v-model="username" class="form-control align-self-center" type="text"/>
@@ -14,7 +14,7 @@
                         <input v-model="password" class="form-control align-self-center" type="password"/>
                     </div>
 
-                    <button v-on:click.prevent="login" type="submit" class="btn btn-primary mb-3">Submit</button>
+                    <button type="submit" class="btn btn-primary mb-3">Submit</button>
                 </form>
             </div>
             <div>
@@ -37,11 +37,20 @@
                 method: 'POST',
                 body: JSON.stringify({username: this.username, password: this.password}),
                 headers: {
-                    'Content-Type': 'text/plain'
+                    'Content-Type': 'application/json'
                 },
                 credentials: 'include'
-            }).then(res => res.json())
-                .then(response => console.log('Success:', response))
+            }).then(res => {
+                if (res.status === 200) {
+                    return 'Success';
+                } else {
+                    throw new Error('Some ting wong');
+                }
+            })
+                .then(() => {
+                    this.$store.dispatch('logInHandler', this.username);
+                    this.$router.push('/DashBoard');
+                })
                 .catch(error => console.error('Error:', error));
         }
   };

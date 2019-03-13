@@ -22,10 +22,7 @@ module.exports = {
     headers: {
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
       'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-      'Access-Control-Allow-Origin': '*'
-    },
-    proxy: {
-      '/user': 'http://localhost:8080'
+      'Access-Control-Allow-Origin': 'http://localhost:8081'
     },
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
