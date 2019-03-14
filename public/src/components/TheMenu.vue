@@ -6,7 +6,7 @@
                 <router-link to="/DashBoard"><li class="menu-item">Dashboard</li></router-link>
                 <router-link to="/TradePage"><li class="menu-item">Trades</li></router-link>
                 <router-link to="/CompanyPage"><li class="menu-item">Investments</li></router-link>
-                <router-link to="/LogIn"><li class="menu-item">Logout</li></router-link>
+                <li v-on:click="logout" class="menu-item">Logout</li>
             </ul>
         </div>
     </div>
@@ -17,11 +17,17 @@
 
   @Component
   export default class TheMenu extends Vue {
-    name: 'TheMenu';
     @Prop({
         default: false
     })
     show: Boolean;
+
+  // Methods
+      logout () {
+          this.$store.dispatch('logOutHandler');
+          this.$cookies.remove(this.$store.getters['returnCookie']);
+          this.$router.push('/LogIn');
+      }
   };
 </script>
 
