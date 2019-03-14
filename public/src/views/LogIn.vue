@@ -13,8 +13,8 @@
                         <label>Password</label>
                         <input v-model="password" class="form-control align-self-center" type="password"/>
                     </div>
-
                     <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                    <span class="float-right text-danger">{{this.loginError}}</span>
                 </form>
             </div>
             <div>
@@ -30,7 +30,7 @@
   export default class LogIn extends Vue {
         username = '';
         password = '';
-
+        loginError = '';
     // methods
         login () {
             fetch('http://localhost:8080/login', {
@@ -43,15 +43,18 @@
             }).then(res => {
                 if (res.status === 200) {
                     return 'Success';
-                } else {
-                    throw new Error('Some ting wong');
+                } else if (res.status === 401) {
+                    throw new Error('username or password incorrect');
                 }
             })
                 .then(() => {
                     this.$store.dispatch('logInHandler', this.username);
                     this.$router.push('/DashBoard');
                 })
-                .catch(error => console.error('Error:', error));
+                .catch((error) => {
+                       this.loginError = error;
+                    console.log(this.loginError);
+                });
         }
   };
 </script>

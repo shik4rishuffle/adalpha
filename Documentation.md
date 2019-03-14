@@ -41,8 +41,11 @@
   ### 12/03/19
   - add in front-authentication method for navigation
   - add in cookie functionality for staying logged in
-  - handle login success/fails
   - handle log out functionality
   
-  Need to fix the redirecting issue with cookies
+  @TODO: fix the redirecting issue with cookies
   
+  ### 14/03/19
+  - handle login success/fails
+
+

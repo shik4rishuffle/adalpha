@@ -2,7 +2,7 @@
     <div class="dash-board container-fluid">
         <div class="row">
             <div class="col">
-                <h1 class="h1">Welcome {{userName}}</h1>
+                <h1 class="h1">Welcome {{this.$store.getters['returnUsername']}}</h1>
             </div>
         </div>
         <div class="row graph-row">
@@ -28,7 +28,6 @@
 
   export default class DashBoard extends Vue {
     name: 'DashBoard';
-    userName: string;
   };
 </script>
 

@@ -22,6 +22,7 @@ const MyApp = new VueApp({
       console.log(Vue.cookies.get(cookieName));
       const cookieValue = Vue.cookies.get(cookieName);
       store.dispatch('logInHandler', cookieValue);
+      router.push({ name: 'DashBoard' });
     }
   },
   components: {App},
