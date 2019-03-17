@@ -22,6 +22,8 @@ const MyApp = new VueApp({
       console.log(Vue.cookies.get(cookieName));
       const cookieValue = Vue.cookies.get(cookieName);
       store.dispatch('logInHandler', cookieValue);
+      const returnTo = localStorage.getItem('currentPage');
+      console.log(returnTo.toString());
       router.push({ name: 'DashBoard' });
     }
   },

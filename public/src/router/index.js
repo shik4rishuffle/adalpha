@@ -33,7 +33,7 @@ const router = new Router({
       component: DashBoard
     },
     {
-      path: '/TradePage',
+      path: '/TradePage/:isin',
       name: 'TradePage',
       component: TradePage
     }
@@ -41,7 +41,8 @@ const router = new Router({
   mode: 'history'
 });
 router.beforeEach((to, from, next) => {
-  if (!to.matched.some(record => record.meta.noRequireAuth)) {
+  const cookieName = store.getters['returnCookie'];
+  if (!to.matched.some(record => record.meta.noRequireAuth) && !Vue.cookies.isKey(cookieName)) {
     if (!store.getters.returnLoginAuth) {
       next({ name: 'LogIn' });
     } else {
@@ -51,7 +52,9 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-router.afterEach((to) => {
-  store.dispatch('currentPageHandler', to.name);
+router.afterEach((to, from) => {
+  if (from.name !== LogIn) {
+    localStorage.setItem('currentPage', to.name);
+  }
 });
 export default router;

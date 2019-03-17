@@ -15,6 +15,7 @@
                 <div class="row">
                     <div class="col">
                         <h3 class="h3">History</h3>
+                        <router-link :to="{name: 'TradePage', params: {isin: this.data.isin} }" tag="button" class="btn btn-primary">Trade</router-link>
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -23,9 +24,9 @@
                                 <th scope="col">Status</th>
                             </tr>
                             <tr v-for="trade in this.data.history" :key="trade.name">
-                                <th scope="col">{{trade.date}}</th>
-                                <th scope="col">£{{(trade.price / 100).toFixed(2)}}</th>
-                                <th scope="col">Processed</th>
+                                <td scope="col">{{trade.date}}</td>
+                                <td scope="col">£{{(trade.price / 100).toFixed(2)}}</td>
+                                <td scope="col">Processed</td>
                             </tr>
                             </thead>
                         </table>
@@ -77,7 +78,3 @@
       }
   };
 </script>
-
-<style scoped>
-
-</style>
