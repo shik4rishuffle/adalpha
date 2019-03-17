@@ -108,8 +108,9 @@
         buyPrice: number = 0;
         sellAmount: number = 0;
         sellPrice: number = 0;
+        bodyData:any;
 
-        created () {
+  created () {
             this.isin = this.$route.params.isin;
 
             fetch('http://localhost:8080/funds/' + this.isin, {
@@ -149,26 +150,24 @@
             this.buyAmount = (this.currentHoldings / 100) * percent;
         }
         sellPost () {
+            this.bodyData = {fundName: this.isin, amount: parseInt(this.computedSellTotal), status: 0};
             fetch('http://localhost:8080/portfolios/' + this.$store.getters['returnUsername'] + '/accounts/' + this.$store.getters['returnPortfolioName'] + '/trades', {
                 method: 'POST',
+                body: JSON.stringify(this.bodyData),
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                credentials: 'include',
+                credentials: 'include'
 
-                body: JSON.stringify({
-                    // @ts-ignore
-                    Status: 'TradePending',
-                    FundName: this.isin,
-                    Amount: this.computedSellTotal
-                    })
-            }).then(response => {
-                return response.json();
+            }).then(res => {
+                if (res.status === 200) {
+                    return 'Success';
+                } else if (res.status === 401) {
+                    throw new Error('username or password incorrect');
+                }
             })
                 .then((res) => {
                     console.log(res);
-                    this.data = res;
-                    this.getCurrentHoldings();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -180,7 +179,7 @@
             return (this.buyAmount * this.buyPrice).toFixed(4);
         }
         get computedSellTotal () {
-            return (this.sellAmount * this.sellPrice).toFixed(4);
+            return (this.sellAmount * this.sellPrice).toFixed(0);
         }
   };
 </script>
