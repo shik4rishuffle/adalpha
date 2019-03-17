@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
     portfolioName: '',
     portfolioHoldings: [],
     portfolioTrades: false,
-    portfolioTotal: 0
+    portfolioTotal: 0,
+    currentPage: ''
   },
   getters: {
     returnLoginAuth: state => {
@@ -34,6 +35,9 @@ export const store = new Vuex.Store({
     },
     returnPortfolioTotal: state => {
       return state.portfolioTotal;
+    },
+    returnCurrentPage: state => {
+      return state.currentPage;
     }
   },
 
@@ -57,6 +61,9 @@ export const store = new Vuex.Store({
     },
     portfolioTotalHandler: (state, payload) => {
       state.portfolioTotal += payload;
+    },
+    currentPageHandler: (state, payload) => {
+      state.currentPage = payload;
     }
   },
 
@@ -78,6 +85,9 @@ export const store = new Vuex.Store({
     },
     portfolioTotalHandler: (context, payload) => {
       context.commit('portfolioTotalHandler', payload);
+    },
+    currentPageHandler: (context, payload) => {
+      context.commit('currentPageHandler', payload);
     }
   }
 

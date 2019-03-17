@@ -56,3 +56,12 @@
    this is correct
    - now feed through ISIN, current price and current percentage of portfolio to be kept in the vuex store.
 
+### 17/03/19
+   - ~~Add in Holding page functionality~~
+   - Add in trade functionality
+   - Add in graphs
+   - fix loading the dashboard before the ajax issue
+   - fix the refresh issue
+   - style
+   - add in test scenarios
+   - Go back over code and make sure it is all up to scratch with code standards

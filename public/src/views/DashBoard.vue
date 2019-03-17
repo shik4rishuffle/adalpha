@@ -2,7 +2,7 @@
     <div class="dash-board container-fluid">
         <div class="row">
             <div class="col">
-                <h1 class="h1">Welcome {{this.$store.getters['returnUsername']}} - £{{this.$store.getters['returnPortfolioTotal'].toFixed(2)}}</h1>
+                <h3 class="h3">{{this.$store.getters['returnPortfolioName']}} - £{{this.$store.getters['returnPortfolioTotal'].toFixed(2)}}</h3>
             </div>
         </div>
         <div class="row graph-row">

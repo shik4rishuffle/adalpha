@@ -23,7 +23,7 @@ const router = new Router({
       }
     },
     {
-      path: '/CompanyPage',
+      path: '/CompanyPage/:isin',
       name: 'CompanyPage',
       component: CompanyPage
     },
@@ -50,5 +50,8 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
+});
+router.afterEach((to) => {
+  store.dispatch('currentPageHandler', to.name);
 });
 export default router;

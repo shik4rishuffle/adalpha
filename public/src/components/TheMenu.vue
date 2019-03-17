@@ -5,7 +5,6 @@
             <ul class="card col-4">
                 <router-link to="/DashBoard"><li class="menu-item">Dashboard</li></router-link>
                 <router-link to="/TradePage"><li class="menu-item">Trades</li></router-link>
-                <router-link to="/CompanyPage"><li class="menu-item">Investments</li></router-link>
                 <li v-on:click="logout" class="menu-item">Logout</li>
             </ul>
         </div>

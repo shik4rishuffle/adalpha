@@ -11,13 +11,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="holding in this.portfolio" :key="holding.name">
+            <router-link v-for="holding in this.portfolio" :key="holding.name" :to="{name: 'CompanyPage', params: {isin: holding.isin} }" tag="tr">
                 <td>{{ holding.isin }}</td>
                 <td>{{ holding.name }}</td>
                 <td>{{ holding.scaled.toFixed(4) }}</td>
                 <td>£{{ holding.currentValue.toFixed(2) }}</td>
                 <td>{{ parseInt(percentageOfPortfolio(holding.currentValue.toFixed(2)))}}</td>
-            </tr>
+            </router-link>
             </tbody>
         </table>
         <div>
@@ -36,7 +36,7 @@
     portfolio: any = [];
     portfolioTotal: number = 0;
     loaded: boolean = false;
-    mounted () {
+    created () {
         this.getData();
     }
     percentageOfPortfolio (accountValue) {
