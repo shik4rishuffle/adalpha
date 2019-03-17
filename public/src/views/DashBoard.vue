@@ -2,16 +2,13 @@
     <div class="dash-board container-fluid">
         <div class="row">
             <div class="col">
-                <h1 class="h1">Welcome {{this.$store.getters['returnUsername']}}</h1>
+                <h1 class="h1">Welcome {{this.$store.getters['returnUsername']}} - £{{this.$store.getters['returnPortfolioTotal'].toFixed(2)}}</h1>
             </div>
         </div>
         <div class="row graph-row">
-            <div class="col-8 graph-col">
-                <div class="col-11 graph">
-                    <InvestmentGraph></InvestmentGraph>
-                </div>
-                <div class="col-1">
-                    <div>Toggle</div>
+            <div class="col-6 graph-col">
+                <div class="col-12 graph">
+                    <the-portfolio></the-portfolio>
                 </div>
             </div>
         </div>
@@ -19,11 +16,11 @@
 </template>
 
 <script lang="ts">
-  import InvestmentGraph from '../components/InvestmentGraph';
+  import ThePortfolio from '../components/ThePortfolio';
   import {Vue, Component} from 'vue-property-decorator';
 
   @Component({
-      components: {InvestmentGraph}
+      components: {ThePortfolio}
   })
 
   export default class DashBoard extends Vue {

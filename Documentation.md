@@ -47,5 +47,12 @@
   
   ### 14/03/19
   - handle login success/fails
-
+  - pull through data
+    - Going to attempt to just GET from database and map it to a table. this should work!
+    - turned out to be a LOT fiddlier than I thought. It required breaking up the data and remapping the array of 
+    objects so they all have accessible property names.
+  - assuming that the unscaled amount and exponent is the amount of shares in each company and the total is 200,000 I
+   will need to work out the scaled amount to create an easier to read graph. will need to check with ad-alpha that 
+   this is correct
+   - now feed through ISIN, current price and current percentage of portfolio to be kept in the vuex store.
 
