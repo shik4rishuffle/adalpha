@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-  import InvestmentGraph from '../components/InvestmentGraph';
+  import InvestmentGraph from '../components/ThePortfolio';
   import {Vue, Component} from 'vue-property-decorator';
   @Component({
       components: {InvestmentGraph}
