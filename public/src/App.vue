@@ -2,7 +2,7 @@
     <div id="app">
         <router-view/>
         <!--@ToDo: take this off the login screen-->
-        <TheMenu></TheMenu>
+        <the-menu></the-menu>
     </div>
 </template>
 

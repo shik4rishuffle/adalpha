@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
     portfolioName: '',
     portfolioHoldings: [],
     portfolioTrades: false,
-    portfolioTotal: 0
+    portfolioTotal: 0,
+    currentPage: ''
   },
   getters: {
     returnLoginAuth: state => {

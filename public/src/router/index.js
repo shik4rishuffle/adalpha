@@ -5,7 +5,7 @@ import {store} from '../store/store';
 import LogIn from '@/views/LogIn';
 import CompanyPage from '@/views/CompanyPage';
 import DashBoard from '@/views/DashBoard';
-import TradePage from '@/views/TradePage';
+import TradesPage from '@/views/TradesPage';
 
 Vue.use(Router);
 const router = new Router({
@@ -23,7 +23,7 @@ const router = new Router({
       }
     },
     {
-      path: '/CompanyPage',
+      path: '/CompanyPage/:isin',
       name: 'CompanyPage',
       component: CompanyPage
     },
@@ -33,15 +33,16 @@ const router = new Router({
       component: DashBoard
     },
     {
-      path: '/TradePage',
-      name: 'TradePage',
-      component: TradePage
+      path: '/TradesPage',
+      name: 'TradesPage',
+      component: TradesPage
     }
   ],
   mode: 'history'
 });
 router.beforeEach((to, from, next) => {
-  if (!to.matched.some(record => record.meta.noRequireAuth)) {
+  const cookieName = store.getters['returnCookie'];
+  if (!to.matched.some(record => record.meta.noRequireAuth) && !Vue.cookies.isKey(cookieName)) {
     if (!store.getters.returnLoginAuth) {
       next({ name: 'LogIn' });
     } else {
@@ -49,6 +50,11 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next();
+  }
+});
+router.afterEach((to, from) => {
+  if (from.name !== LogIn) {
+    localStorage.setItem('currentPage', to.name);
   }
 });
 export default router;
