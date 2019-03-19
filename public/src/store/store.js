@@ -61,7 +61,7 @@ export const store = new Vuex.Store({
       state.portfolioTrades = payload;
     },
     portfolioTotalHandler: (state, payload) => {
-      state.portfolioTotal += payload;
+      state.portfolioTotal = payload;
     },
     portfolioLoadedHandler: (state, payload) => {
       state.portfolioLoaded = payload;
