@@ -9,6 +9,7 @@
             <div class="col-6 graph-col">
                 <div class="col-12 graph">
                     <the-portfolio></the-portfolio>
+                    <pie-chart v-if="this.$store.getters['returnPortfolioLoaded']"></pie-chart>
                 </div>
             </div>
         </div>
@@ -18,9 +19,10 @@
 <script lang="ts">
   import ThePortfolio from '../components/ThePortfolio';
   import {Vue, Component} from 'vue-property-decorator';
+  import PieChart from '../components/PieChart.vue';
 
   @Component({
-      components: {ThePortfolio}
+      components: {PieChart, ThePortfolio}
   })
 
   export default class DashBoard extends Vue {

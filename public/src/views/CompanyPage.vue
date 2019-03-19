@@ -1,5 +1,9 @@
 <template>
     <div class="company-page container-fluid">
+        <div class="history-graph">
+            <history-graph :chart-data="datacollection" :options="options"></history-graph>
+        </div>
+
         <div class="row">
             <div class="col">
                 <div class="row">
@@ -52,14 +56,17 @@
 <script lang="ts">
   import {Vue, Component} from 'vue-property-decorator';
   import TheTrader from '../components/TheTrader.vue';
+  import HistoryGraph from '../components/HistoryGraph.vue';
   @Component({
-      components: {TheTrader}
+      components: {HistoryGraph, TheTrader}
   })
   export default class CompanyPage extends Vue {
       isin:string;
       data:any = [];
       currentHoldings:number = 0;
       trades:any = [];
+      datacollection: any = {};
+      options: any = {};
 
       created () {
           this.isin = this.$route.params.isin;
@@ -120,8 +127,24 @@
               return response.json();
           })
               .then((res) => {
-                  console.log(res);
                   this.data = res;
+
+                  // Build Graph data and pass through to HistoryGraph.vue component
+                  let dataArray = [];
+                  let labelsArray = [];
+                  for (let result of this.data.history) {
+                      dataArray.push(result.price);
+                      labelsArray.push(result.date);
+                  }
+                  this.datacollection = dataArray;
+                  this.datacollection = {
+                      labels: labelsArray,
+                      datasets: [{
+                          data: dataArray,
+                          lineTension: 0
+                      }]
+                  };
+
                   this.getCurrentHoldings();
               })
               .catch((error) => {

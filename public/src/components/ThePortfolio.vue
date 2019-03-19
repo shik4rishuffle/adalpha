@@ -92,11 +92,11 @@
                     this.$store.dispatch('portfolioTotalHandler', currentValue);
                     let newObject = {'isin': holding.isin, 'unscaled': holding.amount.unscaled, 'exponent': holding.amount.exponent, 'scaled': scaled, 'name': accountName, 'price': accountPrice, 'currentValue': currentValue};
                     this.portfolio.push(newObject);
-                    console.log(this.portfolio);
                 }
             this.$store.dispatch('portfolioHoldingsHandler', this.portfolio);
         }).then(() => {
             this.loaded = true;
+            this.$store.dispatch('portfolioLoadedHandler', this.loaded);
         })
             .catch((error) => {
                 console.log(error);

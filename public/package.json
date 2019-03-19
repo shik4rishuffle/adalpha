@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "chart.js": "^2.8.0",
     "vue": "^2.5.2",
+    "vue-chartjs": "^3.4.2",
     "vue-class-component": "^7.0.1",
     "vue-cookies": "^1.5.12",
     "vue-property-decorator": "^8.0.0",
