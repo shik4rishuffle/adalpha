@@ -1,28 +1,22 @@
 <template>
-    <div class="table-responsive">
-        <table class="table-hover">
-            <thead>
+        <table class="table portfolio__table table-hover table-responsive">
+            <thead class="portfolio__table-head">
             <tr>
-                <th>ISIN</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Current Value</th>
-                <th>Percentage of portfolio</th>
+                <th class="portfolio__table-cell">ISIN</th>
+                <th class="portfolio__table-cell--name">Name</th>
+                <th class="portfolio__table-cell">Amount</th>
+                <th class="portfolio__table-cell">Value</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="portfolio__table-body">
             <router-link v-for="holding in this.portfolio" :key="holding.name" :to="{name: 'CompanyPage', params: {isin: holding.isin} }" tag="tr">
-                <td>{{ holding.isin }}</td>
-                <td>{{ holding.name }}</td>
-                <td>{{ holding.scaled.toFixed(4) }}</td>
-                <td>£{{ holding.currentValue.toFixed(2) }}</td>
-                <td>{{ parseInt(percentageOfPortfolio(holding.currentValue.toFixed(2)))}}</td>
+                <td class="portfolio__table-cell">{{ holding.isin }}</td>
+                <td class="portfolio__table-cell--name">{{ holding.name }}</td>
+                <td class="portfolio__table-cell">{{ holding.scaled.toFixed(4) }}</td>
+                <td class="portfolio__table-cell">£{{ holding.currentValue.toFixed(2) }}</td>
             </router-link>
             </tbody>
         </table>
-        <div>
-        </div>
-    </div>
 </template>
 
 <script lang="ts">
@@ -109,3 +103,34 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+    .portfolio__table {
+        display: table;
+    }
+    .portfolio__table-cell {
+        text-align: center;
+        padding:3px;
+    }
+    .portfolio__table-cell--name {
+        @extend .portfolio__table-cell;
+        display: none;
+    }
+
+    .table {
+        text-align: center;
+        tr {
+            text-align: center;
+        }
+        th, td {
+            padding: 5px 5px;
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        .portfolio__table-cell--name {
+            display: table-cell;
+        }
+    }
+</style>

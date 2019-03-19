@@ -1,32 +1,26 @@
 <template>
-    <div class="company-page container-fluid">
-        <div class="history-graph">
+    <div class="company-page">
+        <div class="company-page__history-graph">
             <history-graph :chart-data="datacollection" :options="options"></history-graph>
+            <h4 class="company-page__name">{{this.data.name}}</h4>
+            <div class="company-page__details">
+                <div class="company-page__detail">ISIN: {{ this.data.isin }}</div>
+                <div class="company-page__detail">Current Price: £{{(this.data['current-price'] / 100).toFixed(2)}}</div>
+                <div class="company-page__detail">Current Holdings: {{this.currentHoldings.toFixed(2)}}</div>
+            </div>
         </div>
-
+        <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <div class="row">
-                    <div class="col flex-row">
-                        <h1 class="h1 company-name">{{this.data.name}}</h1>
-                        <h3 class="h3">ISIN: {{ this.data.isin }}</h3>
-                        <h3 class="h3">Current Price: £{{(this.data['current-price'] / 100).toFixed(2)}}</h3>
-                        <h3 class="h3">Current Holdings: {{this.currentHoldings.toFixed(2)}}</h3>
-                    </div>
-                </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-12">
                         <the-trader
                         v-on:get-trade-history="getTradeHistory()"
                         ></the-trader>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col">
-                        <h3 class="h3">History</h3>
-                        <table class="table table-hover">
+                 <table class="table table table-striped">
                             <thead>
                             <tr>
                                 <th scope="col">Buy/Sell</th>
@@ -34,7 +28,9 @@
                                 <th scope="col">Amount</th>
                                 <th scope="col">Status</th>
                             </tr>
-                            <tr v-for="trade in this.trades"
+                            </thead>
+                <tbody>
+                     <tr v-for="trade in this.trades"
                                 :key="trade.name"
                                 :class="trade.type"
                                 v-if="(trade.status >0 && trade.status < 5)"
@@ -44,10 +40,9 @@
                                 <td scope="col">{{Math.abs(trade.amount)}}</td>
                                 <td scope="col">{{getTradeStatus(trade.status)}}</td>
                             </tr>
-                            </thead>
+                </tbody>
                         </table>
-                    </div>
-                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -177,3 +172,46 @@
       }
   };
 </script>
+<style lang="scss" scoped>
+    .company-page__history-graph {
+        position: relative;
+        width:100vw;
+    }
+    .company-page__name {
+        position: absolute;
+        top:0;
+        padding: 0 10px;
+        margin-top: 60px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .company-page__details {
+        position: absolute;
+        bottom: 20px;
+        padding:0 10px;
+    }
+    .company-page__detail {
+        margin-top: 5px;
+        font-size: 0.8em;
+    }
+    .table {
+        width:100vw;
+        padding: 0;
+        margin: 20px -15px;
+        text-align: center;
+        tr {
+            text-align: center;
+        }
+        th, td {
+            padding: 0;
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        .company-page__detail {
+            margin-top: 5px;
+            font-size: 1em;
+        }
+    }
+</style>

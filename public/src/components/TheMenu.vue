@@ -2,10 +2,10 @@
     <div class="the-menu">
         <div v-on:click="show = true" class="burger-icon">Menu</div>
         <div v-on:click="show = false" v-if="show" class="menu-takeover">
-            <ul class="card col-4">
+            <ul class="card col-8 col-md-6">
                 <router-link to="/DashBoard"><li class="menu-item">Dashboard</li></router-link>
                 <router-link to="/TradesPage"><li class="menu-item">Trades</li></router-link>
-                <li v-on:click="logout" class="menu-item">Logout</li>
+                <li v-on:click="logout" class="menu-item--logout">Logout</li>
             </ul>
         </div>
     </div>
@@ -30,13 +30,13 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .menu-takeover {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 100%;
         background: rgba(0, 0, 0, 0.5);
         display: flex;
         justify-content: center;
@@ -47,6 +47,10 @@
         list-style-type: none;
         padding: 10px;
         text-align: center;
+    }
+    .menu-item--logout {
+        @extend .menu-item;
+        color: darkred;
     }
 
     .burger-icon {

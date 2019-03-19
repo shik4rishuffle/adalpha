@@ -1,19 +1,13 @@
 <template>
-    <div class="dash-board container-fluid">
-        <div class="row">
-            <div class="col">
-                <h3 class="h3">{{this.$store.getters['returnPortfolioName']}} - £{{this.$store.getters['returnPortfolioTotal'].toFixed(2)}}</h3>
+    <div class="dash-board">
+                    <div class="dash-board__portfolio-chart" v-if="this.$store.getters['returnPortfolioLoaded']">
+                        <pie-chart></pie-chart>
+                        <h3 class="dash-board__portfolio-total">£{{this.$store.getters['returnPortfolioTotal'].toFixed(2)}}</h3>
+                    </div>
+                    <div class="dash-board__portfolio-table col-lg-7">
+                        <the-portfolio></the-portfolio>
+                    </div>
             </div>
-        </div>
-        <div class="row graph-row">
-            <div class="col-6 graph-col">
-                <div class="col-12 graph">
-                    <the-portfolio></the-portfolio>
-                    <pie-chart v-if="this.$store.getters['returnPortfolioLoaded']"></pie-chart>
-                </div>
-            </div>
-        </div>
-    </div>
 </template>
 
 <script lang="ts">
@@ -30,15 +24,32 @@
   };
 </script>
 
-<style scoped>
-    .graph-row {
+<style lang="scss" scoped>
+    .dash-board {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
-
-    .graph-col {
-        display: flex;
-        flex-direction: row;
-        text-align: center;
-    }
+.dash-board__portfolio-chart {
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+}
+.dash-board__portfolio-total {
+    text-align: center;
+    margin-bottom: 15px;
+    color: darkslategray;
+}
+.dash-board__portfolio-table {
+    display: flex;
+    width: 100%;
+}
+    @media only screen and (min-width: 768px) {
+        .dash-board__portfolio-chart {
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+        }
 </style>

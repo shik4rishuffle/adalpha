@@ -60,5 +60,12 @@
 </script>
 
 <style scoped>
-
+.card {
+    border:none;
+}
+@media only screen and (min-width: 768px) {
+    .card {
+        border: 1px solid #ccc;
+    }
+}
 </style>
