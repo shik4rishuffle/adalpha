@@ -19,11 +19,9 @@ const MyApp = new VueApp({
   beforeMount: () => {
     const cookieName = store.getters['returnCookie'];
     if(Vue.cookies.isKey(cookieName)){
-      console.log(Vue.cookies.get(cookieName));
       const cookieValue = Vue.cookies.get(cookieName);
       store.dispatch('logInHandler', cookieValue);
       const returnTo = localStorage.getItem('currentPage');
-      console.log(returnTo.toString());
       router.push({ name: 'DashBoard' });
     }
   },

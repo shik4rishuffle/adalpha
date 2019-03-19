@@ -93,7 +93,6 @@
                 return response.json();
             })
                 .then((res) => {
-                    console.log(res);
                     this.data = res;
                     this.getCurrentHoldings();
                 })
@@ -137,7 +136,6 @@
                 }
             })
                 .then((res) => {
-                    console.log(res);
                     this.$emit('get-trade-history');
                     this.closeTradePane();
                 })
@@ -165,7 +163,6 @@
                 .then((res) => {
                     this.$emit('get-trade-history');
                     this.closeTradePane();
-                    console.log(res);
                 })
                 .catch((error) => {
                     console.log(error);

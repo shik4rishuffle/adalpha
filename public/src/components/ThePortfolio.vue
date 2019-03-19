@@ -30,12 +30,13 @@
     portfolio: any = [];
     portfolioTotal: number = 0;
     loaded: boolean = false;
-    created () {
+    currentValueTally:number = 0;
+
+      mounted () {
+        this.currentValueTally = 0;
         this.getData();
     }
-    percentageOfPortfolio (accountValue) {
-        return (accountValue / this.$store.getters['returnPortfolioTotal']) * 100;
-    }
+
     // methods
     getData () {
     fetch('http://localhost:8080/portfolios/' + this.$store.getters['returnUsername'] + '/accounts/', {
@@ -83,10 +84,11 @@
                         accountPrice = parseInt(item.price.toString());
                         });
                     const currentValue = (accountPrice * scaled) / 100;
-                    this.$store.dispatch('portfolioTotalHandler', currentValue);
+                    this.currentValueTally += currentValue;
                     let newObject = {'isin': holding.isin, 'unscaled': holding.amount.unscaled, 'exponent': holding.amount.exponent, 'scaled': scaled, 'name': accountName, 'price': accountPrice, 'currentValue': currentValue};
                     this.portfolio.push(newObject);
                 }
+            this.$store.dispatch('portfolioTotalHandler', this.currentValueTally);
             this.$store.dispatch('portfolioHoldingsHandler', this.portfolio);
         }).then(() => {
             this.loaded = true;
