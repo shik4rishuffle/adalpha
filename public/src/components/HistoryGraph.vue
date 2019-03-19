@@ -12,6 +12,11 @@
             legend: {
                 display: false
             },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            },
             scales: {
                 yAxes: [{
                     ticks: {
@@ -19,7 +24,8 @@
                     },
                     gridLines: {
                         display: false
-                    }
+                    },
+                    display: false
                 }],
                 xAxes: [{
                     ticks: {

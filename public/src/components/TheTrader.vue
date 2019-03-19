@@ -1,9 +1,14 @@
 <template>
-    <div class="trade-page container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-2">
-                        <div class="form-group d-flex"><h4 class="h4">Buy</h4></div>
-                        <form class="buy-form">
+    <div class="trade-page col-lg-3">
+                <div class="row">
+                    <div v-if="!showBuy && !showSell" class="col toggle-container">
+                        <div class="btn btn-outline-primary" v-on:click="showBuyPane()">Buy</div>
+                        <div class="btn btn-outline-primary" v-on:click="showSellPane()">Sell</div>
+                    </div>
+                        <form v-if="showBuy" class="col buy-form">
+                            <div class="form-group d-flex">
+                                <h4 class="toggle active">Buy</h4>
+                            </div>
                             <div class="form-group">
                                 <label for="buyPrice">Price: £</label>
                                 <input id="buyPrice" type="text" v-model="buyPrice" :placeholder="(this.data['current-price'] / 100)">
@@ -14,26 +19,24 @@
                             </div>
 
                             <div class="button-holder form-group">
-                                <div v-on:click="buyPercent(25)" class="btn btn-primary">25%</div>
-                                <div v-on:click="buyPercent(50)" class="btn btn-primary">50%</div>
-                                <div v-on:click="buyPercent(75)" class="btn btn-primary">75%</div>
-                                <div v-on:click="buyPercent(100)" class="btn btn-primary">100%</div>
+                                <div v-on:click="buyPercent(25)" class="btn btn-dark">25%</div>
+                                <div v-on:click="buyPercent(50)" class="btn btn-dark">50%</div>
+                                <div v-on:click="buyPercent(75)" class="btn btn-dark">75%</div>
+                                <div v-on:click="buyPercent(100)" class="btn btn-dark">100%</div>
                             </div>
                             <div class="form-group">
                                 <label for="buyTotal">Total: £</label>
                                 <input disabled id="buyTotal" type="text" v-model="computedBuyTotal">
                             </div>
-                            <div class="form-group d-flex justify-content-between">
-                                <div class="btn btn-secondary">Clear</div>
-                                <div class="btn btn-success" v-on:click="buyPost()">Buy</div>
+                            <div class="form-group--buttons">
+                                <div class="btn btn-dark" v-on:click="closeTradePane()">Cancel</div>
+                                <div class="btn btn-primary" v-on:click="buyPost()">Buy</div>
                             </div>
                         </form>
-                    </div>
-                    <div class="col-2">
-                        <div class="form-group d-flex justify-content-between align-items-center">
-                            <h4 class="h4">Sell</h4>
-                        </div>
-                        <form class="sell-form">
+                        <form v-if="showSell" class="col sell-form">
+                            <div class="form-group d-flex">
+                                <h4 class="h4">Sell</h4>
+                            </div>
                             <div class="form-group">
                                 <label for="sellPrice">Price: £</label>
                                 <input id="sellPrice" type="text" v-model="sellPrice" :placeholder="(this.data['current-price'] / 100)">
@@ -44,23 +47,23 @@
                             </div>
 
                             <div class="button-holder form-group">
-                                <div v-on:click="sellPercent(25)" class="btn btn-primary">25%</div>
-                                <div v-on:click="sellPercent(50)" class="btn btn-primary">50%</div>
-                                <div v-on:click="sellPercent(75)" class="btn btn-primary">75%</div>
-                                <div v-on:click="sellPercent(100)" class="btn btn-primary">100%</div>
+                                <div v-on:click="sellPercent(25)" class="btn btn-dark">25%</div>
+                                <div v-on:click="sellPercent(50)" class="btn btn-dark">50%</div>
+                                <div v-on:click="sellPercent(75)" class="btn btn-dark">75%</div>
+                                <div v-on:click="sellPercent(100)" class="btn btn-dark">100%</div>
                             </div>
                             <div class="form-group">
                                 <label for="sellTotal">Total: £</label>
                                 <input disabled id="sellTotal" type="text" v-model="computedSellTotal">
                             </div>
-                            <div class="form-group d-flex justify-content-between">
-                                <div class="btn btn-secondary">Clear</div>
+                            <div class="form-group--buttons">
+                                <div class="btn btn-dark" v-on:click="closeTradePane()">Cancel</div>
                                 <div class="btn btn-primary" v-on:click="sellPost">Sell</div>
+
                             </div>
                         </form>
-                    </div>
                 </div>
-            </div>
+                </div>
 </template>
 
 <script lang="ts">
@@ -75,6 +78,8 @@
         sellAmount:number = 0;
         sellPrice:number = 0;
         bodyData:any;
+        showBuy:boolean = false;
+        showSell:boolean = false;
 
   created () {
             this.isin = this.$route.params.isin;
@@ -134,6 +139,7 @@
                 .then((res) => {
                     console.log(res);
                     this.$emit('get-trade-history');
+                    this.closeTradePane();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -158,11 +164,29 @@
             })
                 .then((res) => {
                     this.$emit('get-trade-history');
+                    this.closeTradePane();
                     console.log(res);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
+        }
+
+        showBuyPane () {
+            this.showBuy = true;
+            this.showSell = false;
+        }
+        showSellPane () {
+            this.showBuy = false;
+            this.showSell = true;
+        }
+        closeTradePane () {
+            this.showBuy = false;
+            this.showSell = false;
+            this.buyAmount = 0;
+            this.buyPrice = 0;
+            this.sellAmount = 0;
+            this.sellPrice = 0;
         }
 
         // computed
@@ -174,3 +198,65 @@
         }
   };
 </script>
+
+<style lang="scss" scoped>
+    .trade-page {
+        position: relative;
+        background: white;
+        padding: 10px 0;
+        margin:0;
+        width:100%;
+        -webkit-box-shadow: 1px 2px 3px 2px rgba(184,184,184,0.66);
+        -moz-box-shadow: 1px 2px 3px 2px rgba(184,184,184,0.66);
+        box-shadow: 1px 2px 3px 2px rgba(184,184,184,0.66);
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+    }
+    .toggle-container {
+        display: flex;
+        justify-content: center;
+
+        .btn {
+            margin: 0 10px;
+            width: 80px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    .form-group {
+        width:100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    label {
+        margin-bottom: 0;
+    }
+    input {
+        justify-content: stretch;
+    }
+    .form-group--buttons {
+        @extend .form-group;
+        justify-content: space-around;
+
+        .btn {
+            margin:0 10px;
+        }
+    }
+    .btn {
+        width: 50px;
+        padding: 5px 0px;
+    }
+    @media only screen and (min-width: 768px) {
+        .trade-page {
+            margin: 0 auto;
+            -webkit-box-shadow: 0 0 1px 1px rgba(184,184,184,0.66);
+            -moz-box-shadow: 0 0 1px 1px rgba(184,184,184,0.66);
+            box-shadow: 0 0 1px 1px rgba(184,184,184,0.66);
+        }
+    }
+</style>

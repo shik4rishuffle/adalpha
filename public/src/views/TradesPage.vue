@@ -1,12 +1,8 @@
 <template>
-    <div class="company-page container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="row">
-                    <div class="col">
-                        <h3 class="h3">All Trades</h3>
+    <div class="company-page">
+                        <h3 class="company-page-title">All Trades</h3>
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table class="table table-hover table-striped">
                                 <thead>
                                 <tr>
                                     <th>Buy/Sell</th>
@@ -32,10 +28,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </template>
 
 <script lang="ts">
@@ -103,3 +96,28 @@
         }
   };
 </script>
+<style lang="scss" scoped>
+    .company-page {
+        margin:0;
+        padding:0;
+    }
+    .company-page-title {
+        margin-top:30px;
+        text-align: center;
+    }
+    .table {
+        width:100vw;
+        padding: 0;
+        margin: 10px 0;
+        text-align: center;
+    tr {
+        text-align: center;
+    }
+    th, td {
+        padding: 5px 3px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 0.99em;
+    }
+    }
+</style>

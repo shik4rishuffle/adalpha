@@ -8,7 +8,7 @@
   })
   export default class PieChart extends Vue {
         chartData:any;
-        chartOptions:any;
+        options:any;
         incData:any = 2;
         mounted () {
             this.setData();
@@ -25,16 +25,24 @@
                 datasets: [{
                     data: dataArray
                 }],
-                labels: labelsArray
+                labels: labelsArray,
+                centerText: {
+                    display: true,
+                    text: '20'
+                }
             };
-            this.chartOptions = {
+            this.options = {
+                maintainAspectRatio: false,
                 intersect: false,
                 animation: {
-                    duration: 3000
+                    duration: 1000
+                },
+                legend: {
+                    display: false
                 }
             };
             // @ts-ignore
-            this.renderChart(this.chartData, this.chartOptions);
+            this.renderChart(this.chartData, this.options);
         }
   }
 </script>
