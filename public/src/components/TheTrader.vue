@@ -1,17 +1,5 @@
 <template>
     <div class="trade-page container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="row">
-                    <div class="col flex-row">
-                        <h1 class="h1 company-name">{{this.data.name}}</h1>
-                        <h3 class="h3">ISIN: {{ this.data.isin }}</h3>
-                        <h3 class="h3">Current Price: £{{(this.data['current-price'] / 100).toFixed(2)}}</h3>
-                        <h3 class="h3">Current Holdings: {{this.currentHoldings.toFixed(2)}}</h3>
-
-                    </div>
-                </div>
-
                 <div class="row justify-content-center">
                     <div class="col-2">
                         <div class="form-group d-flex"><h4 class="h4">Buy</h4></div>
@@ -37,13 +25,13 @@
                             </div>
                             <div class="form-group d-flex justify-content-between">
                                 <div class="btn btn-secondary">Clear</div>
-                                <div class="btn btn-success">Buy</div>
+                                <div class="btn btn-success" v-on:click="buyPost()">Buy</div>
                             </div>
                         </form>
                     </div>
                     <div class="col-2">
-                        <div class="form-group d-flex justify-content-between align-items-center"><h4 class="h4">Sell</h4>
-                            <small>{{this.currentHoldings}}</small>
+                        <div class="form-group d-flex justify-content-between align-items-center">
+                            <h4 class="h4">Sell</h4>
                         </div>
                         <form class="sell-form">
                             <div class="form-group">
@@ -72,47 +60,24 @@
                         </form>
                     </div>
                 </div>
-
-                <div class="row collapse">
-                    <div class="col">
-                        <h3 class="h3">History</h3>
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                            <tr v-for="trade in this.data.history" :key="trade.name">
-                                <td scope="col">{{trade.date}}</td>
-                                <td scope="col">£{{(trade.price / 100).toFixed(2)}}</td>
-                                <td scope="col">Processed</td>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
 </template>
 
 <script lang="ts">
   import {Vue, Component} from 'vue-property-decorator';
     @Component
-  export default class TradePage extends Vue {
+  export default class TradesPage extends Vue {
         isin:any;
         data:any = [];
         currentHoldings:number = 0;
-        buyAmount: number = 0;
-        buyPrice: number = 0;
-        sellAmount: number = 0;
-        sellPrice: number = 0;
+        buyAmount:number = 0;
+        buyPrice:number = 0;
+        sellAmount:number = 0;
+        sellPrice:number = 0;
         bodyData:any;
 
   created () {
             this.isin = this.$route.params.isin;
-
             fetch('http://localhost:8080/funds/' + this.isin, {
                 method: 'GET',
                 headers: {
@@ -149,8 +114,8 @@
         buyPercent (percent) {
             this.buyAmount = (this.currentHoldings / 100) * percent;
         }
-        sellPost () {
-            this.bodyData = {fundName: this.isin, amount: parseInt(this.computedSellTotal), status: 0};
+        buyPost () {
+            this.bodyData = {fundName: this.isin, amount: parseInt(this.computedBuyTotal), status: 1};
             fetch('http://localhost:8080/portfolios/' + this.$store.getters['returnUsername'] + '/accounts/' + this.$store.getters['returnPortfolioName'] + '/trades', {
                 method: 'POST',
                 body: JSON.stringify(this.bodyData),
@@ -168,6 +133,32 @@
             })
                 .then((res) => {
                     console.log(res);
+                    this.$emit('get-trade-history');
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+        sellPost () {
+            this.bodyData = {fundName: this.isin, amount: -1 * parseInt(this.computedSellTotal), status: 1};
+            fetch('http://localhost:8080/portfolios/' + this.$store.getters['returnUsername'] + '/accounts/' + this.$store.getters['returnPortfolioName'] + '/trades', {
+                method: 'POST',
+                body: JSON.stringify(this.bodyData),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+
+            }).then(res => {
+                if (res.status === 200) {
+                    return 'Success';
+                } else if (res.status === 401) {
+                    throw new Error('Cannot connect at this time. Please try again later');
+                }
+            })
+                .then((res) => {
+                    this.$emit('get-trade-history');
+                    console.log(res);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -176,10 +167,10 @@
 
         // computed
         get computedBuyTotal () {
-            return (this.buyAmount * this.buyPrice).toFixed(4);
+            return (this.buyAmount * this.buyPrice).toFixed(3);
         }
         get computedSellTotal () {
-            return (this.sellAmount * this.sellPrice).toFixed(0);
+            return (this.sellAmount * this.sellPrice).toFixed(3);
         }
   };
 </script>

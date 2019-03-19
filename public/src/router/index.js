@@ -5,7 +5,7 @@ import {store} from '../store/store';
 import LogIn from '@/views/LogIn';
 import CompanyPage from '@/views/CompanyPage';
 import DashBoard from '@/views/DashBoard';
-import TradePage from '@/views/TradePage';
+import TradesPage from '@/views/TradesPage';
 
 Vue.use(Router);
 const router = new Router({
@@ -33,9 +33,9 @@ const router = new Router({
       component: DashBoard
     },
     {
-      path: '/TradePage/:isin',
-      name: 'TradePage',
-      component: TradePage
+      path: '/TradesPage',
+      name: 'TradesPage',
+      component: TradesPage
     }
   ],
   mode: 'history'
